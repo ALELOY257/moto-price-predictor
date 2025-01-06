@@ -169,3 +169,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+#others
+precios_suzuki.pkl
+suzuki_colombia_filtered.json
+suzuki_colombia.json
