@@ -17,9 +17,18 @@ Tomando los datos relevantes, se utiliza un modelo de regresión lineal para hac
 
 - Teniendo la lógica del modelo, se procede a contenerizar con docker, estableciendo un dockerfile donde se exponga el puerto necesario
 
-- Para subir a cloud run, primero se tiene que poner la imagen de docker en el Artifact Registry, para despues llamarlo en cloud run con
-
+- Para subir a cloud run, primero se tiene que poner la imagen de docker en el Artifact Registry ```docker tag suzuki-motos-api northamerica-south1-docker.pkg.dev/fiery-catwalk-447000-h7/motoapi-repo/suzuki-motos-api ```
+  ```docker push northamerica-south1-docker.pkg.dev/fiery-catwalk-447000-h7/motoapi-repo/suzuki-motos-api```, para despues llamarlo en cloud run con
+  ```gcloud run deploy suzuki-motos-api `
+>> --image=northamerica-south1-docker.pkg.dev/fiery-catwalk-447000-h7/motoapi-repo/suzuki-motos-api `
+>> --platform=managed `
+>> --region=us-east1 `
+>> --allow-unauthenticated```
 - Ya se puede llamar el endpoint que deja cloud run
 
-- Para cerrar la instancia de cloud run 
+- Para cerrar la instancia de cloud run
+  ``` gcloud run services delete suzuki-motos-api `
+>> --platform=managed `
+>> --region=us-east1 `
+>> --quiet ```
  
