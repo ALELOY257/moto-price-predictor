@@ -19,16 +19,30 @@ Tomando los datos relevantes, se utiliza un modelo de regresión lineal para hac
 
 - Para subir a cloud run, primero se tiene que poner la imagen de docker en el Artifact Registry ```docker tag suzuki-motos-api northamerica-south1-docker.pkg.dev/fiery-catwalk-447000-h7/motoapi-repo/suzuki-motos-api ```
   ```docker push northamerica-south1-docker.pkg.dev/fiery-catwalk-447000-h7/motoapi-repo/suzuki-motos-api```, para despues llamarlo en cloud run con
-  ```gcloud run deploy suzuki-motos-api `
->> --image=northamerica-south1-docker.pkg.dev/fiery-catwalk-447000-h7/motoapi-repo/suzuki-motos-api `
->> --platform=managed `
->> --region=us-east1 `
+  ```gcloud run deploy suzuki-motos-api 
+>> --image=northamerica-south1-docker.pkg.dev/fiery-catwalk-447000-h7/motoapi-repo/suzuki-motos-api \
+>> --platform=managed \
+>> --region=us-east1 \
 >> --allow-unauthenticated```
 - Ya se puede llamar el endpoint que deja cloud run
 
 - Para cerrar la instancia de cloud run
-  ``` gcloud run services delete suzuki-motos-api `
->> --platform=managed `
->> --region=us-east1 `
+  ``` gcloud run services delete suzuki-motos-api \
+>> --platform=managed \
+>> --region=us-east1 \
 >> --quiet ```
- 
+
+- Para hacer el proceso automatizado, se debe crear una función en python para la lógica de deploy y stop para la instancia de cloud run con
+  ```gcloud functions deploy my-function \
+>>     --runtime python39 \
+>>     --trigger-http \
+>>     --allow-unauthenticated \
+>>     --source . \
+>>     --entry-point deploy_stop ```
+Para esto se debe crear una carpeta con el archivo main.py y requirements.txt, con esto, se reserva el url de la funcion
+- Se establece un scheduler de gcloud para automatizar el deploy de la api
+  ```gcloud scheduler jobs create http 20-minutes-job `
+>> --schedule="*/20 * * * *" `
+>> --uri="https://us-central1-fiery-catwalk-447000-h7.cloudfunctions.net/my-function" `
+>> --http-method=GET `
+>> --location us-central1```
