@@ -2,10 +2,10 @@
 A price predictor for suzuki motorcycles in Colombia, with an api called through google cloud run
 ## Changes that need to be applied
 When I made this, I wasnt aware of some methods to have a better performing model, this is the checklist of the implementation of those changes
-- [] Recreate the model with Jupyter notebooks for simplicity when making summaries of the model
-- [] Take out the features with an elevated p-value
-- [] Check the variations of R2 value
-- [] Try a Lasso regression to compare to the base model
+- [ ] Recreate the model with Jupyter notebooks for simplicity when making summaries of the model
+- [ ] Take out the features with an elevated p-value
+- [ ] Check the variations of R2 value
+- [ ] Try a Lasso regression to compare to the base model
 
 
 ## Resumen
